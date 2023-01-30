@@ -82,7 +82,7 @@ const router = useRouter();
 const user = {
   email: '',
   password: '',
-  remember: false
+  // remember: false
 };
 
 let errMsg = ref('');
@@ -92,12 +92,20 @@ function login(ev) {
   store
     .dispatch('login', user)
     .then(() => {
-      router.push({
-        name: 'Dashboard'
-      });
+
+      if(store.state.user.data.role === 2) {
+        router.push({
+          name: 'AdminDashboard'
+        });
+      }
+      else {
+        router.push({
+          name: 'UserDashboard'
+        });
+      }
     })
     .catch((err) => {
-      errMsg.value = err.response.data.error
+      errMsg.value = err.response.error
     })
 }
 

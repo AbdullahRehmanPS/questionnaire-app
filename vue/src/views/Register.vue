@@ -105,7 +105,7 @@ function register(ev) {
     .dispatch("register", user)
     .then(() => {
       router.push({
-        name: "Dashboard",
+        name: "UserDashboard",
       });
     })
 }

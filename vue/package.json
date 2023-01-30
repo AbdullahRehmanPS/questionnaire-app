@@ -11,6 +11,8 @@
   "dependencies": {
     "@headlessui/vue": "^1.7.7",
     "@heroicons/vue": "^2.0.13",
+    "@websanova/vue-auth": "^4.2.1",
+    "es6-promise": "^4.2.8",
     "vue": "^3.2.45",
     "vue-router": "^4.0.13",
     "vuex": "^4.0.2"

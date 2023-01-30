@@ -11,29 +11,27 @@ const store = createStore({
   getters: {},
   actions: {
     register({ commit }, user) {
-      return axiosClient.post('/register', user)
+      return axiosClient.post('/auth/register', user)
         .then( ({data}) => {
-          //commit('setUser', data);
           commit('setUser', data.user);
           commit('setToken', data.token)
           return data;
         })
     },
+
     login({ commit }, user) {
-      return axiosClient.post('/login', user)
+      return axiosClient.post('/auth/login', user)
         .then( ({data}) => {
-          // console.log(data.user)
-          // console.log(data)
-          //commit('setUser', data);
           commit('setUser', data.user);
           commit('setToken', data.token)
           return data;
         })
     },
     logout({ commit }) {
-      return axiosClient.post('/logout')
+      return axiosClient.post('/auth/logout')
         .then(response => {
           commit('logout');
+          // console.log(store.state.user.token)
           return response;
         })
     },
@@ -45,9 +43,9 @@ const store = createStore({
       sessionStorage.removeItem('TOKEN');
     },
     setUser: (state, userData) => {
-      state.user.token = userData.token;
-      state.user.data = userData.user;
-      sessionStorage.setItem('TOKEN', userData.token);
+      state.user.data =  userData;
+      // state.user.token = userData.token;
+      // sessionStorage.setItem('TOKEN', userData.token);
     },
     setToken: (state, token) => {
       state.user.token = token;

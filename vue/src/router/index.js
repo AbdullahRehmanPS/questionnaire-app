@@ -3,7 +3,8 @@ import DefaultLayout from "../components/DefaultLayout.vue";
 import AuthLayout from "../components/AuthLayout.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
-import Dashboard from "../views/Dashboard.vue";
+import UserDashboard from "../views/user/Dashboard.vue";
+import AdminDashboard from "../views/admin/Dashboard.vue";
 
 import store from "../store/index.js";
 
@@ -14,10 +15,16 @@ const routes = [
     component: DefaultLayout,
     meta: {requiresAuth: true},
     children: [
-      { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-      // { path: '/surveys', name: 'Surveys', component: Surveys },
-      // { path: '/surveys/create', name: 'SurveyCreate', component: SurveyView },
-      // { path: '/surveys/:id', name: 'SurveyView', component: SurveyView}
+      { path: '/dashboard', name: 'UserDashboard', component: UserDashboard },
+      { path: '/admin', name: 'AdminDashboard', component: AdminDashboard },
+    ]
+  },
+  {
+    path: '/admin',
+    component: DefaultLayout,
+    meta: {requiresAuth: true},
+    children: [
+      { path: '/admin', name: 'AdminDashboard', component: AdminDashboard },
     ]
   },
   {
@@ -37,16 +44,19 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 });
-
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && !store.state.user.token) {
     next({name: 'Login'})
-  } else if (store.state.user.token && (to.meta.isGuest)){/*(to.name === 'Login' || to.name === 'Register'))*/
-    next({name: 'Dashboard'})
+  } else if (store.state.user.token && to.meta.isGuest){/*(to.name === 'Login' || to.name === 'Register'))*/
+    if (store.state.user.data.role === 2) {
+      next({name: 'AdminDashboard'})
+    }
+    else {
+      next({name: 'UserDashboard'})
+    }
   } else {
     next();
   }
 })
-
 
 export default router;

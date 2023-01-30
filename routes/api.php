@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,19 +16,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::prefix('auth')->group(function () {
 
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
-    Route::post('/logout', [AuthController::class, 'logout']);
-//    Route::resource('/survey', SurveyController::class);
-});
-
-Route::prefix('admin')->middleware('auth')->group(function () {
+    //Route::post('register', 'AuthController@register');
     Route::post('/register', [AuthController::class, 'register']);
+
+    //Route::post('login', 'AuthController@login');
     Route::post('/login', [AuthController::class, 'login']);
+
+    //Route::get('refresh', 'AuthController@refresh');
+    Route::get('refresh', [AuthController::class, 'refresh']);
+
+    Route::group(['middleware' => 'auth:api'], function(){
+        //Route::get('user', 'AuthController@user');
+        //Route::post('logout', 'AuthController@logout');
+
+        Route::get('user', [AuthController::class, 'user']);
+        Route::post('logout', [AuthController::class, 'logout']);
+    });
 });
 
-//Route::post('/register', [AuthController::class, 'register']);
-//Route::post('/login', [AuthController::class, 'login']);
+Route::group(['middleware' => 'auth:api'], function(){
+    // Users
+    Route::get('users', [UserController::class, 'index'])->middleware('isAdmin');
+    Route::get('users/{id}', [UserController::class, 'show'])->middleware('isAdminOrSelf');
+});

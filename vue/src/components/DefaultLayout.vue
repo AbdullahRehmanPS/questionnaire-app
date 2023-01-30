@@ -144,7 +144,7 @@ import { BellIcon,
         XMarkIcon } from '@heroicons/vue/24/outline';
 
 const navigation = [
-  { name: 'Dashboard', to: {name: 'Dashboard'} },
+  { name: 'Dashboard', to: {name: 'UserDashboard'} },
   // { name: 'Surveys', to: {name: 'Surveys'} },
 ];
 
