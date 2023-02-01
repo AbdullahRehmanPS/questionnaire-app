@@ -1,10 +1,10 @@
 <template>
-  <h1>admin</h1>
-<!--  <PageComponent title="Dashboard">-->
+  <PageComponent title="Admin">
 
-<!--  </PageComponent>-->
+  </PageComponent>
+
 </template>
 
 <script setup>
-// import PageComponent from "../components/PageComponent.vue";
+import PageComponent from "../../components/PageComponent.vue";
 </script>

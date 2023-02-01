@@ -1,30 +1,28 @@
 import {createRouter, createWebHistory} from "vue-router";
-import DefaultLayout from "../components/DefaultLayout.vue";
 import AuthLayout from "../components/AuthLayout.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
-import UserDashboard from "../views/user/Dashboard.vue";
 import AdminDashboard from "../views/admin/Dashboard.vue";
+import UserDashboard from "../views/user/Dashboard.vue";
+import Questionnaires from "../views/Questionnaires.vue"
+import AdminDefaultLayout from "../components/admin/DefaultLayout.vue"
+import UserDefaultLayout from "../components/user/DefaultLayout.vue"
+import QuestionnaireView from "../views/QuestionnaireView.vue"
 
 import store from "../store/index.js";
 
 const routes = [
   {
-    path: '/',
-    redirect: '/dashboard',
-    component: DefaultLayout,
-    meta: {requiresAuth: true},
-    children: [
-      { path: '/dashboard', name: 'UserDashboard', component: UserDashboard },
-      { path: '/admin', name: 'AdminDashboard', component: AdminDashboard },
-    ]
-  },
-  {
     path: '/admin',
-    component: DefaultLayout,
+    redirect: '/dashboard',
+    component: AdminDefaultLayout,
     meta: {requiresAuth: true},
     children: [
-      { path: '/admin', name: 'AdminDashboard', component: AdminDashboard },
+      { path: '/dashboard', name: 'AdminDashboard', component: AdminDashboard },
+      { path: '/questionnaires', name: 'Questionnaires', component: Questionnaires },
+      { path: '/questionnaires/create', name: 'QuestionnaireCreate', component: QuestionnaireView },
+      { path: '/questionnaires/:id', name: 'QuestionnaireView', component: QuestionnaireView },
+      { path: '/register', name: 'Register', component: Register }
     ]
   },
   {
@@ -35,7 +33,14 @@ const routes = [
     meta: {isGuest: true},
     children: [
       { path: '/login', name: 'Login', component: Login },
-      { path: '/register', name: 'Register', component: Register }
+      // { path: '/register', name: 'Register', component: Register }
+    ]
+  },
+  {
+    path: '/',
+    component: UserDefaultLayout,
+    children: [
+      { path: '/', name: 'UserDashboard', component: UserDashboard },
     ]
   },
 ];
@@ -48,12 +53,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && !store.state.user.token) {
     next({name: 'Login'})
   } else if (store.state.user.token && to.meta.isGuest){/*(to.name === 'Login' || to.name === 'Register'))*/
-    if (store.state.user.data.role === 2) {
       next({name: 'AdminDashboard'})
-    }
-    else {
-      next({name: 'UserDashboard'})
-    }
   } else {
     next();
   }

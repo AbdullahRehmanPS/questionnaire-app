@@ -1,13 +1,10 @@
 <template>
       <div>
-        <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Log in to your account</h2>
-        <p class="mt-2 text-center text-sm text-gray-600">
-          Not registered ?
-          {{ ' ' }}
-          <router-link v-bind:to="{name: 'Register'}" href="#" class="font-medium text-orange-600 hover:text-orange-500">
-            register for free
-          </router-link>
-        </p>
+        <img class="mx-auto h-12 w-auto" src="/public/phpstudios.png"
+             alt="Your Company" />
+        <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+          Log in to your account
+        </h2>
       </div>
 
       <form class="mt-8 space-y-6" @submit="login">
@@ -38,32 +35,17 @@
           </div>
         </div>
 
-<!--        <div class="flex items-center justify-between">-->
-<!--          <div class="flex items-center">-->
-<!--            <input-->
-<!--              id="remember-me"-->
-<!--              name="remember-me"-->
-<!--              type="checkbox"-->
-<!--              v-model="user.remember"-->
-<!--              class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"-->
-<!--            />-->
-<!--            <label for="remember-me" class="ml-2 block text-sm text-gray-900">-->
-<!--              Remember me-->
-<!--            </label>-->
-<!--          </div>-->
-<!--        </div>-->
-
         <div>
           <button type="submit"
                   class="group relative flex w-full
                    justify-center rounded-md border
-                   border-transparent bg-orange-600
+                   border-transparent bg-orange-500
                    py-2 px-4 text-sm font-medium
-                   text-white hover:bg-orange-700 focus:outline-none
+                   text-white hover:bg-orange-600 focus:outline-none
                    focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
 
             <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-              <LockClosedIcon class="h-5 w-5 text-orange-500 group-hover:text-orange-400" aria-hidden="true" />
+              <LockClosedIcon class="h-5 w-5 text-orange-300 group-hover:text-orange-400" aria-hidden="true" />
             </span>
             Login
           </button>
@@ -92,20 +74,13 @@ function login(ev) {
   store
     .dispatch('login', user)
     .then(() => {
-
-      if(store.state.user.data.role === 2) {
-        router.push({
-          name: 'AdminDashboard'
-        });
-      }
-      else {
-        router.push({
-          name: 'UserDashboard'
-        });
-      }
+      router.push({
+        name: 'AdminDashboard'
+      });
     })
     .catch((err) => {
-      errMsg.value = err.response.error
+      console.log(err)
+      // errorMsg.value = err.response.error;
     })
 }
 
