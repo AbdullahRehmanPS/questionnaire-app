@@ -13,15 +13,16 @@
         @click="addQuestion()"
         class="
           flex
-          items-center
-          text-xs
-          py-1
-          px-3
-          mr-2
-          rounded-sm
-          text-white
-          bg-gray-600
-          hover:bg-gray-700
+            items-center
+            text-xs
+            py-1
+            px-3
+            mr-2
+            rounded-sm
+            border border-green-700
+            text-white
+            bg-green-500
+            hover:bg-green-700
         "
       >
         <svg
@@ -51,7 +52,7 @@
           py-1
           px-3
           rounded-sm
-          border border-transparent
+          border border-red-600
           text-red-500
           hover:border-red-600
         "
@@ -177,9 +178,10 @@
             py-1
             px-2
             rounded-sm
+            border border-blue-700
             text-white
-            bg-gray-600
-            hover:bg-gray-700
+            bg-blue-500
+            hover:bg-blue-700
           "
         >
           <svg

@@ -22,7 +22,7 @@
 
 
   <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
-    <!--      Individual survey card -->
+    <!--      Individual Questionnaire card -->
     <div
       v-for="questionnaire in questionnaires"
       :key="questionnaire.id"
@@ -31,12 +31,13 @@
       <div v-html="questionnaire.description" class="overflow-hidden flex-1"></div>
 
       <div class="flex justify-between items-center mt-3">
+
         <!--          Edit Button -->
         <router-link
           :to="{name: 'QuestionnaireView', params: { id: questionnaire.id } }"
           class="flex py-2 px-4 border border-transparent text-sm
-                 rounded-md text-white bg-indigo-600 hover:bg-indigo-700
-                 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                 rounded-md text-white bg-blue-600 hover:bg-blue-700
+                 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -48,11 +49,13 @@
           </svg>
           Edit
         </router-link>
+
+
         <!--          Delete Button -->
         <button
           v-if="questionnaire.id"
           type="button"
-          @click="deleteSurvey(questionnaire)"
+          @click="deleteQuestionnaire(questionnaire)"
           class="flex text-red-600">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                viewBox="0 0 24 24" stroke-width="1.5"
@@ -77,7 +80,7 @@ import { computed } from "vue";
 
 const questionnaires = computed(() => store.state.questionnaires);
 
-function deleteSurvey(survey) {
+function deleteQuestionnaire(questionnaire) {
   if (confirm('are u confirm u want to delete?')) {
 
   }

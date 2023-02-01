@@ -110,9 +110,12 @@ const store = createStore({
       data: {},
       token: sessionStorage.getItem("TOKEN"),
     },
+    currentQuestionnaires: {
+      loading: false,
+      data: {}
+    },
     questionnaires: [...tmpQuestionnaires],
     questionTypes: [ 'text', 'textarea', 'radio' ],
-    // questionTypes: [ 'text', 'textarea', 'select', 'radio', 'checkbox' ],
   },
   getters: {},
   actions: {
@@ -141,9 +144,25 @@ const store = createStore({
           return response;
         })
     },
-    saveQuestionnaire({ commit }, data) {
-      [...questionnaires] = data
-    }
+    saveQuestionnaire({ commit }, questionnaire) {
+      let response;
+      if (questionnaire.id) {
+        response = axiosClient
+          .put(`/auth/questionnaire/${questionnaire.id}`, questionnaire)
+          .then((res) => {
+            commit('setCurrentQuestionnaire', res.data) //updateCurrentQuestionnaire
+            return res;
+          });
+      } else {
+        response = axiosClient
+          .post('/auth/questionnaire', questionnaire)
+          .then((res) => {
+            commit('setCurrentQuestionnaire', res.data) //setCurrentQuestionnaire
+            return res;
+          });
+      }
+      return response;
+    },
   },
   mutations: {
     logout: state => {
@@ -159,6 +178,9 @@ const store = createStore({
     setToken: (state, token) => {
       state.user.token = token;
       sessionStorage.setItem('TOKEN', token);
+    },
+    setCurrentQuestionnaire: (state, questionnaires) => {
+      state.currentQuestionnaires.data = questionnaires.data;
     },
   }
 });

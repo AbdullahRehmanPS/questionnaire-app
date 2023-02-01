@@ -8,9 +8,9 @@
       </div>
     </template>
 
-    <form @submit.prevent="saveSurvey">
+    <form @submit.prevent="saveQuestionnaire">
       <div class="shadow sm:rounded-md sm:overflow-hidden">
-        <!--    SurveyFields -->
+        <!--    QuestionnaireFields -->
         <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
           <!--     Image -->
 
@@ -24,7 +24,7 @@
               name="title"
               type="text"
               v-model="model.title"
-              autocomplete="survey_title"
+              autocomplete="questionnaire_title"
               class="mt-1 focus:ring-orange-500
                      focus:border-orange-500
                      block w-full shadow-sm
@@ -45,7 +45,7 @@
                 name="description"
                 rows="3"
                 v-model="model.description"
-                autocomplete="survey_description"
+                autocomplete="questionnaire_description"
                 placeholder="Describe your questionnaire"
                 class="shadow-sm focus:ring-orange-500
                        focus:border-orange-500 mt-1
@@ -57,7 +57,7 @@
           <!--  /Description -->
 
         </div>
-        <!--  /SurveyFields      -->
+        <!--  /QuestionnaireFields      -->
 
 
         <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
@@ -107,10 +107,11 @@
         <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
           <button
             type="submit"
-            class="w-5 h-5 mr-2 bg"
+            class="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 border-b-4 border-yellow-600 hover:border-yellow-500 rounded"
           >Save
           </button>
         </div>
+
       </div>
     </form>
 
@@ -139,7 +140,7 @@ let model = ref({
 if (route.params.id) {
   model.value = store.state.questionnaires.find((s) => s.id === parseInt(route.params.id));
   // console.log(parseInt(route.params.id))
-  //store.dispatch('getSurvey', route.params.id);
+  //store.dispatch('getQuestionnaire', route.params.id);
 }
 
 function addQuestion(index) {
@@ -168,11 +169,12 @@ function questionChange(data) {
   );
 }
 
-function saveSurvey() {
+function saveQuestionnaire() {
   store.dispatch('saveQuestionnaire', model.value)
     .then( ({data}) => {
       router.push({
-        name: 'Questionnaires'
+        name: 'QuestionnaireView',
+        params: {id: data.data.id}
       })
     })
 }

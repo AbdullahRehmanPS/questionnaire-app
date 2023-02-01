@@ -26,6 +26,7 @@ Route::prefix('auth')->group(function () {
 
         Route::get('user', [AuthController::class, 'user']);
         Route::post('logout', [AuthController::class, 'logout']);
+        Route::resource('/questionnaire', \App\Http\Controllers\QuestionnaireController::class);
     });
 });
 

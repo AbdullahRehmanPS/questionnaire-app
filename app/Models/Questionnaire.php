@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Questionnaire extends Model
 {
     use HasFactory;
+    protected $fillable = ['user_id', 'title', 'description', 'expire_date'];
 }
