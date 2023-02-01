@@ -92,7 +92,7 @@
         :id="'question_text_' + model.data"
         class="
           mt-1
-          focus:ring-indigo-500 focus:border-indigo-500
+          focus:ring-orange-500 focus:border-orange-500
           block
           w-full
           shadow-sm
@@ -124,7 +124,7 @@
           bg-white
           rounded-md
           shadow-sm
-          focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
+          focus:outline-none focus:ring-orange-500 focus:border-orange-500
           sm:text-sm
         "
       >
@@ -148,7 +148,7 @@
       :id="'question_description_' + model.id"
       class="
         mt-1
-        focus:ring-indigo-500 focus:border-indigo-500
+        focus:ring-orange-500 focus:border-orange-500
         block
         w-full
         shadow-sm
@@ -221,7 +221,8 @@
             px-2
             text-xs
             border border-gray-300
-            focus:border-indigo-500
+            focus:border-orange-500
+            focus:ring-orange-500
           "
         />
 

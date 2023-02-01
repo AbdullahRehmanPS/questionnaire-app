@@ -25,8 +25,8 @@
               type="text"
               v-model="model.title"
               autocomplete="survey_title"
-              class="mt-1 focus:ring-indigo-500
-                     focus:border-indigo-500
+              class="mt-1 focus:ring-orange-500
+                     focus:border-orange-500
                      block w-full shadow-sm
                      sm:text-sm border-gray-300
                      rounded-md"
@@ -47,8 +47,8 @@
                 v-model="model.description"
                 autocomplete="survey_description"
                 placeholder="Describe your questionnaire"
-                class="shadow-sm focus:ring-indigo-500
-                       focus:border-indigo-500 mt-1
+                class="shadow-sm focus:ring-orange-500
+                       focus:border-orange-500 mt-1
                        block w-full sm:text-sm border
                        border-gray-300 rounded-md"
               />
