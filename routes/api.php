@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\QuestionnaireController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,7 +27,7 @@ Route::prefix('auth')->group(function () {
 
         Route::get('user', [AuthController::class, 'user']);
         Route::post('logout', [AuthController::class, 'logout']);
-        Route::resource('/questionnaire', \App\Http\Controllers\QuestionnaireController::class);
+        Route::resource('/questionnaire', QuestionnaireController::class);
     });
 });
 

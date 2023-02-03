@@ -80,6 +80,8 @@ import { computed } from "vue";
 
 const questionnaires = computed(() => store.state.questionnaires);
 
+store.dispatch()
+
 function deleteQuestionnaire(questionnaire) {
   if (confirm('are u confirm u want to delete?')) {
 
