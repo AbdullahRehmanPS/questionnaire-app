@@ -132,7 +132,6 @@ const store = createStore({
           return data;
         })
     },
-
     login({ commit }, user) {
       return axiosClient.post('/auth/login', user)
         .then( ({data}) => {
@@ -172,7 +171,7 @@ const store = createStore({
       //commit("setCurrentSurveyLoading", true);
       return axiosClient
         .get(`/auth/questionnaire/${id}`)
-        .then((res) => {
+        .then( (res) => {
           commit("setCurrentQuestionnaire", res.data);
           //commit("setCurrentSurveyLoading", false);
           return res;
@@ -181,6 +180,15 @@ const store = createStore({
           //commit("setCurrentSurveyLoading", false);
           throw err;
         });
+    },
+    getQuestionnaires( {commit} ){
+      //commit("setCurrentSurveyLoading", true);
+      return axiosClient
+        .get('/auth/questionnaire')
+        .then( (res) => {
+          //commit("setCurrentSurveyLoading", false);
+          commit('setQuestionnaires', res.data)
+        })
     },
     deleteQuestionnaire( {}, id) {
       return axiosClient
@@ -202,9 +210,12 @@ const store = createStore({
       state.user.token = token;
       sessionStorage.setItem('TOKEN', token);
     },
-    setCurrentQuestionnaire: (state, questionnaires) => {
-      state.currentQuestionnaires.data = questionnaires.data;
+    setCurrentQuestionnaire: (state, questionnaire) => {
+      state.currentQuestionnaires.data = questionnaire.data;
     },
+    setQuestionnaires: (state, questionnaires) => {
+      state.questionnaires.data = questionnaires.data
+    }
   }
 });
 export default store;

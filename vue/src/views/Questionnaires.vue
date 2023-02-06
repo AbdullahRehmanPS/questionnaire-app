@@ -20,7 +20,6 @@
     </div>
   </template>
 
-
   <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
     <!--      Individual Questionnaire card -->
     <div
@@ -50,7 +49,6 @@
           Edit
         </router-link>
 
-
         <!--          Delete Button -->
         <button
           v-if="questionnaire.id"
@@ -77,14 +75,21 @@
 import PageComponent from "../components/PageComponent.vue";
 import store from "../store/index.js";
 import { computed } from "vue";
+import {useRouter} from "vue-router";
 
-const questionnaires = computed(() => store.state.questionnaires);
+const router = useRouter();
+const questionnaires = computed(() => store.state.questionnaires.data);
 
-store.dispatch()
+store.dispatch('getQuestionnaires')
 
 function deleteQuestionnaire(questionnaire) {
   if (confirm('are u confirm u want to delete?')) {
-
+    store.dispatch('deleteQuestionnaire', questionnaire.id)
+      .then( () => {
+        router.push({
+          name: 'Questionnaires'
+        })
+      })
   }
 }
 
