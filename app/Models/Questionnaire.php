@@ -8,5 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Questionnaire extends Model
 {
     use HasFactory;
+
+    const TYPE_TEXT = 'text';
+    const TYPE_TEXTAREA = 'textarea';
+    const TYPE_SELECT = 'select';
+    const TYPE_RADIO = 'radio';
+    const TYPE_CHECKBOX = 'checkbox';
+
     protected $fillable = ['user_id', 'title', 'description', 'expire_date'];
+
+    public function questions() {
+        return $this->hasMany(QuestionnaireQuestion::class);
+    }
 }

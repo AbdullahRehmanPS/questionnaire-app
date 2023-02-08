@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\QuestionnaireQuestionResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\URL;
 
@@ -26,7 +27,7 @@ class QuestionnaireResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'expire_date' => $this->expire_date,
-            'questions' => []
+            'questions' => QuestionnaireQuestionResource::collection($this->questions)
         ];
     }
 }
