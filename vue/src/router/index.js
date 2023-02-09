@@ -8,6 +8,7 @@ import Questionnaires from "../views/Questionnaires.vue"
 import AdminDefaultLayout from "../components/admin/DefaultLayout.vue"
 import UserDefaultLayout from "../components/user/DefaultLayout.vue"
 import QuestionnaireView from "../views/QuestionnaireView.vue"
+import QuestionnairePublicView from "../views/user/QuestionnairePublicView.vue"
 
 import store from "../store/index.js";
 
@@ -24,6 +25,11 @@ const routes = [
       { path: '/questionnaires/:id', name: 'QuestionnaireView', component: QuestionnaireView },
       { path: '/register', name: 'Register', component: Register }
     ]
+  },
+  {
+    path: '/view/questionnaire/:id',
+    name: 'QuestionnairePublicView',
+    component: QuestionnairePublicView
   },
   {
     path: '/auth',

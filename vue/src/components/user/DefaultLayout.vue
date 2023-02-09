@@ -7,7 +7,7 @@
 
             <div class="flex-shrink-0 bg-gray-400 rounded-full">
               <img class="h-8 w-8"
-                   src="/public/phpstudios.png" alt="Your Company" />
+                   src="/phpstudios.png" alt="Your Company" />
             </div>
 
             <div class="hidden md:block">

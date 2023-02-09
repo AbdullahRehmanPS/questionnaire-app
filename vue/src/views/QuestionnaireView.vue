@@ -196,6 +196,10 @@ function questionChange(data) {
 function saveQuestionnaire() {
   store.dispatch('saveQuestionnaire', model.value)
     .then(({data}) => {
+      store.commit('notify', {
+        type: 'success',
+        message: 'Questionnaire updated successfully'
+      })
       router.push({
         name: 'QuestionnaireView',
         params: {id: data.data.id}
