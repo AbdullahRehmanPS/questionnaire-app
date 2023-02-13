@@ -23,7 +23,7 @@ const routes = [
       { path: '/questionnaires', name: 'Questionnaires', component: Questionnaires },
       { path: '/questionnaires/create', name: 'QuestionnaireCreate', component: QuestionnaireView },
       { path: '/questionnaires/:id', name: 'QuestionnaireView', component: QuestionnaireView },
-      { path: '/register', name: 'Register', component: Register }
+      //{ path: '/register', name: 'Register', component: Register }
     ]
   },
   {
@@ -39,7 +39,7 @@ const routes = [
     meta: {isGuest: true},
     children: [
       { path: '/login', name: 'Login', component: Login },
-      // { path: '/register', name: 'Register', component: Register }
+      { path: '/register', name: 'Register', component: Register }
     ]
   },
   {

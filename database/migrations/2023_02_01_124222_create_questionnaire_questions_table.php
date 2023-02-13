@@ -20,7 +20,11 @@ return new class extends Migration
             $table->string('question',2000);
             $table->longText('description')->nullable();
             $table->longText('data')->nullable();
-            $table->foreignIdFor(Questionnaire::class, 'questionnaire_id');
+           // $table->foreignIdFor(Questionnaire::class, 'questionnaire_id');
+            $table->foreignIdFor(Questionnaire::class,'questionnaire_id')
+                ->references('id')->on('questionnaires')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

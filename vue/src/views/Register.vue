@@ -1,6 +1,7 @@
 <template>
-  <div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-    <div class="w-full max-w-md space-y-8">
+<!--  <div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">-->
+<!--    <div class="w-full max-w-md space-y-8">-->
+
       <div>
         <img class="mx-auto h-12 w-auto" src="/phpstudios.png"
              alt="Your Company" />
@@ -8,6 +9,7 @@
           Create New Admin
         </h2>
       </div>
+
       <form class="mt-8 space-y-6" @submit="register">
         <input type="hidden" name="remember" value="true"/>
         <div class="-space-y-px rounded-md shadow-sm">
@@ -81,8 +83,8 @@
           </button>
         </div>
       </form>
-    </div>
-  </div>
+<!--    </div>-->
+<!--  </div>-->
 
 </template>
 

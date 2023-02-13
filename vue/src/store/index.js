@@ -1,4 +1,4 @@
-import {createStore} from "vuex";
+import { createStore } from "vuex";
 import axiosClient from "../axios.js";
 
 // const tmpQuestionnaires = [
@@ -109,7 +109,7 @@ const store = createStore({
   state: {
     user: {
       data: {},
-      token: sessionStorage.getItem("TOKEN"),
+      token: localStorage.getItem("TOKEN"),
     },
     currentQuestionnaires: {
       loading: false,
@@ -120,7 +120,7 @@ const store = createStore({
       loading: false,
       data: []
     },
-    questionTypes: [ 'text', 'textarea', 'select', 'radio', 'checkbox' ],
+    questionTypes: [ 'text', 'textarea', 'select', 'radio' ],
     notification: {
       show: false,
       type: null,
@@ -186,7 +186,7 @@ const store = createStore({
           throw err;
         });
     },
-    getQuestionnaires( {commit} ){
+    getQuestionnaires({commit}) {
       //commit("setCurrentSurveyLoading", true);
       return axiosClient
         .get('/auth/questionnaire')
@@ -198,22 +198,29 @@ const store = createStore({
     deleteQuestionnaire( {}, id) {
       return axiosClient
         .delete(`/auth/questionnaire/${id}`);
+    },
+    getQuestionnaireBySlug() {
+
+    },
+    saveQuestionnaireAnswer( {commit}, {questionnaireId, answers}) {
+      return axiosClient
+        .post(`/questionnaire/${questionnaireId}/answer`, answers)
     }
   },
   mutations: {
     logout: state => {
       state.user.data = {};
       state.user.token = null;
-      sessionStorage.removeItem('TOKEN');
+      localStorage.removeItem('TOKEN');
     },
     setUser: (state, userData) => {
       state.user.data =  userData;
-      // state.user.token = userData.token;
-      // sessionStorage.setItem('TOKEN', userData.token);
+      state.user.token = userData.token;
+      localStorage.setItem('TOKEN', userData.token);
     },
     setToken: (state, token) => {
       state.user.token = token;
-      sessionStorage.setItem('TOKEN', token);
+      localStorage.setItem('TOKEN', token);
     },
     setCurrentQuestionnaire: (state, questionnaire) => {
       state.currentQuestionnaires.data = questionnaire.data;

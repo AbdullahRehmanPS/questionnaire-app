@@ -21,13 +21,18 @@
     </template>
 
     <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+      <div v-if="!questionnaires.length" class="text-gray-600 mx-4">
+        You don't have questionnaire created
+      </div>
       <!--      Individual Questionnaire card -->
-      <QuestionnaireListItem
-        v-for="questionnaire in questionnaires"
-        :key="questionnaire.id"
-        :questionnaire="questionnaire"
-        @delete="deleteQuestionnaire(questionnaire)"
-      />
+      <div v-else>
+        <QuestionnaireListItem
+          v-for="questionnaire in questionnaires"
+          :key="questionnaire.id"
+          :questionnaire="questionnaire"
+          @delete="deleteQuestionnaire(questionnaire)"
+        />
+      </div>
     </div>
 
   </PageComponent>
@@ -49,9 +54,7 @@ function deleteQuestionnaire(questionnaire) {
   if (confirm('are u confirm u want to delete?')) {
     store.dispatch('deleteQuestionnaire', questionnaire.id)
       .then(() => {
-        router.push({
-          name: 'Questionnaires'
-        })
+        store.dispatch('getQuestionnaires');
       })
   }
 }
