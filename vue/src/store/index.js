@@ -1,4 +1,4 @@
-import { createStore } from "vuex";
+import {createStore} from "vuex";
 import axiosClient from "../axios.js";
 
 // const tmpQuestionnaires = [
@@ -109,7 +109,7 @@ const store = createStore({
   state: {
     user: {
       data: {},
-      token: localStorage.getItem("TOKEN"),
+      token: sessionStorage.getItem("TOKEN"),
     },
     currentQuestionnaires: {
       loading: false,
@@ -120,7 +120,7 @@ const store = createStore({
       loading: false,
       data: []
     },
-    questionTypes: [ 'text', 'textarea', 'select', 'radio' ],
+    questionTypes: ['text', 'textarea', 'select', 'radio'],
     notification: {
       show: false,
       type: null,
@@ -129,23 +129,23 @@ const store = createStore({
   },
   getters: {},
   actions: {
-    register({ commit }, user) {
+    register({commit}, user) {
       return axiosClient.post('/auth/register', user)
-        .then( ({data}) => {
+        .then(({data}) => {
           commit('setUser', data.user);
           commit('setToken', data.token)
           return data;
         })
     },
-    login({ commit }, user) {
+    login({commit}, user) {
       return axiosClient.post('/auth/login', user)
-        .then( ({data}) => {
+        .then(({data}) => {
           commit('setUser', data.user);
           commit('setToken', data.token)
           return data;
         })
     },
-    logout({ commit }) {
+    logout({commit}) {
       return axiosClient.post('/auth/logout')
         .then(response => {
           commit('logout');
@@ -153,7 +153,7 @@ const store = createStore({
           return response;
         })
     },
-    saveQuestionnaire({ commit }, questionnaire) {
+    saveQuestionnaire({commit}, questionnaire) {
       let response;
       if (questionnaire.id) {
         response = axiosClient
@@ -172,11 +172,11 @@ const store = createStore({
       }
       return response;
     },
-    getQuestionnaire({ commit }, id) {
+    getQuestionnaire({commit}, id) {
       //commit("setCurrentSurveyLoading", true);
       return axiosClient
         .get(`/auth/questionnaire/${id}`)
-        .then( (res) => {
+        .then((res) => {
           commit("setCurrentQuestionnaire", res.data);
           //commit("setCurrentSurveyLoading", false);
           return res;
@@ -190,37 +190,37 @@ const store = createStore({
       //commit("setCurrentSurveyLoading", true);
       return axiosClient
         .get('/auth/questionnaire')
-        .then( (res) => {
+        .then((res) => {
           //commit("setCurrentSurveyLoading", false);
           commit('setQuestionnaires', res.data)
         })
     },
-    deleteQuestionnaire( {}, id) {
+    deleteQuestionnaire({}, id) {
       return axiosClient
         .delete(`/auth/questionnaire/${id}`);
     },
     getQuestionnaireBySlug() {
 
     },
-    saveQuestionnaireAnswer( {commit}, {questionnaireId, answers}) {
+    saveQuestionnaireAnswer({commit}, {questionnaireId, answers}) {
       return axiosClient
-        .post(`/questionnaire/${questionnaireId}/answer`, answers)
+        .post(`/auth/questionnaire/${questionnaireId}/answer`, {answers})
     }
   },
   mutations: {
     logout: state => {
       state.user.data = {};
       state.user.token = null;
-      localStorage.removeItem('TOKEN');
+      sessionStorage.removeItem('TOKEN');
     },
     setUser: (state, userData) => {
-      state.user.data =  userData;
+      state.user.data = userData;
       state.user.token = userData.token;
-      localStorage.setItem('TOKEN', userData.token);
+      sessionStorage.setItem('TOKEN', userData.token);
     },
     setToken: (state, token) => {
       state.user.token = token;
-      localStorage.setItem('TOKEN', token);
+      sessionStorage.setItem('TOKEN', token);
     },
     setCurrentQuestionnaire: (state, questionnaire) => {
       state.currentQuestionnaires.data = questionnaire.data;
@@ -228,7 +228,7 @@ const store = createStore({
     setQuestionnaires: (state, questionnaires) => {
       state.questionnaires.data = questionnaires.data
     },
-    notify: (state, { type, message}) => {
+    notify: (state, {type, message}) => {
       state.notification.show = true;
       state.notification.type = type;
       state.notification.message = message;

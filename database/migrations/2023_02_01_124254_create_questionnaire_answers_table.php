@@ -16,7 +16,10 @@ return new class extends Migration
     {
         Schema::create('questionnaire_answers', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Questionnaire::class, 'questionnaire_id');
+            //$table->foreignIdFor(Questionnaire::class, 'questionnaire_id');
+            $table->foreignIdFor(Questionnaire::class,'questionnaire_id')
+                ->references('id')->on('questionnaires')
+                ->onDelete('cascade');
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
         });

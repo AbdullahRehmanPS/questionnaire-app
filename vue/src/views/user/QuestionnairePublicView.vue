@@ -9,16 +9,16 @@
         </div>
       </div>
 
-      <div v-if="questionnaireFinished" class="py-8 px-6 bg-emerald-400 text-white w-[600px] mx-auto">
+      <div v-if="questionnaireFinished" class="py-8 px-6 bg-orange-400 text-white w-[600px] mx-auto">
         <div class="text-xl mb-3 font-semibold">
           Thank You for participating
         </div>
-        <button
-        @click="submitAnotherResponse"
-        type="button"
-        class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
-        >Submit Your Response
-        </button>
+<!--        <button-->
+<!--        @click="submitAnotherResponse"-->
+<!--        type="button"-->
+<!--        class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"-->
+<!--        >Submit Your Response-->
+<!--        </button>-->
       </div>
 
       <div v-else>
@@ -62,7 +62,7 @@ store
   })
 
 function submitQuestionnaire() {
-  console.log(JSON.parse(JSON.stringify(answers.value, undefined, 2)));
+  //console.log(JSON.parse(JSON.stringify(answers.value, undefined, 2)));
   store
     .dispatch('saveQuestionnaireAnswer', {
       questionnaireId: questionnaire.value.id,

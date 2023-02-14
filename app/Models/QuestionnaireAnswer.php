@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class QuestionnaireAnswer extends Model
 {
     use HasFactory;
+    public const CREATED_AT = null;
+    public const UPDATED_AT = null;
+
+    protected $fillable = ['questionnaire_id', 'start_date', 'end_date'];
+
+    public function questionnaire()
+    {
+        return $this->belongsTo(Questionnaire::class);
+    }
+
 }

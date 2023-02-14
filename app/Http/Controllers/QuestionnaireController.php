@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreQuestionnaireAnswerRequest;
 use App\Http\Requests\StoreQuestionnaireRequest;
 use App\Http\Requests\UpdateQuestionnaireRequest;
 use App\Http\Resources\QuestionnaireResource;
 use App\Models\Questionnaire;
+use App\Models\QuestionnaireAnswer;
 use App\Models\QuestionnaireQuestion;
+use App\Models\QuestionnaireQuestionAnswer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
@@ -111,6 +114,7 @@ class QuestionnaireController extends Controller
 
         return QuestionnaireQuestion::create($validator->validated());
     }
+
     private function updateQuestion(QuestionnaireQuestion $question, $data)
     {
         if (is_array($data['data'])) {
@@ -133,4 +137,31 @@ class QuestionnaireController extends Controller
         return $question->update($validator->validated());
     }
 
+    public function storeAnswer(StoreQuestionnaireAnswerRequest $request, Questionnaire $questionnaire)
+    {
+        $validated = $request->validated();
+        $questionnaireAnswer = QuestionnaireAnswer::create([
+            'questionnaire_id' => $questionnaire->id,
+            'start_date' => date('Y-m-d H:i:s'),
+            'end_date' => date('Y-m-d H:i:s'),
+        ]);
+
+        //$questionId => $answer will be an associated array where $questionId will be the key and their
+        // values will be answers
+        foreach ($validated['answers'] as $questionId => $answer) {
+            $question = QuestionnaireQuestion::where(['id' => $questionId, 'questionnaire_id' => $questionnaire->id])->get();
+            if (!$question) {
+                return response("Invalid question ID: \"$questionId\"", 400);
+            }
+
+            $data = [
+                'questionnaire_question_id' => $questionId,
+                'questionnaire_answer_id' => $questionnaireAnswer->id,
+                'answer' => is_array($answer) ? json_encode($answer) : $answer
+            ];
+
+            $questionAnswer = QuestionnaireQuestionAnswer::create($data);
+        }
+        return response('', 201);
+    }
 }
