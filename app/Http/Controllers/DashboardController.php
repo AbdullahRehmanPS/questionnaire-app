@@ -26,7 +26,7 @@ class DashboardController extends Controller
 
         // Latest 5 answer
         $latestAnswers = QuestionnaireAnswer::query()
-            ->join('questionnaires', 'questionnaire_answers.survey_id', '=', 'questionnaires.id')
+            ->join('questionnaires', 'questionnaire_answers.questionnaire_id', '=', 'questionnaires.id')
             ->where('questionnaires.user_id', $user->id)
             ->orderBy('end_date', 'DESC')
             ->limit(5)
@@ -34,7 +34,7 @@ class DashboardController extends Controller
 
         return [
             'totalQuestionnaires' => $total,
-            'latestQuestionnaires' => $latest ? new SurveyResourceDashboard($latest) : null,
+            //'latestQuestionnaires' => $latest ? new SurveyResourceDashboard($latest) : null,
             'totalAnswers' => $totalAnswers,
             'latestAnswers' => QuestionnaireAnswerResource::collection($latestAnswers)
         ];

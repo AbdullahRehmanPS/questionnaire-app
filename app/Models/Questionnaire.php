@@ -20,4 +20,7 @@ class Questionnaire extends Model
     public function questions() {
         return $this->hasMany(QuestionnaireQuestion::class);
     }
+    public function answers() {
+        return $this->hasMany(QuestionnaireAnswer::class);
+    }
 }

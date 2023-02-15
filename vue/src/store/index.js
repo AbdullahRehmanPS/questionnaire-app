@@ -111,6 +111,10 @@ const store = createStore({
       data: {},
       token: sessionStorage.getItem("TOKEN"),
     },
+    dashboard: {
+      loading: false,
+      data: {}
+    },
     currentQuestionnaires: {
       loading: false,
       data: {}
@@ -149,7 +153,6 @@ const store = createStore({
       return axiosClient.post('/auth/logout')
         .then(response => {
           commit('logout');
-          // console.log(store.state.user.token)
           return response;
         })
     },
@@ -205,18 +208,32 @@ const store = createStore({
     saveQuestionnaireAnswer({commit}, {questionnaireId, answers}) {
       return axiosClient
         .post(`/auth/questionnaire/${questionnaireId}/answer`, {answers})
+    },
+    getDashboardData({commit}) {
+      commit('dashboardLoading', true)
+      return axiosClient
+        .get(`/auth/dashboard`)
+        .then((res) => {
+          commit('dashboardLoading', false)
+          commit('setDashboardData', res.data)
+          return res;
+        })
+        .catch(error => {
+          commit('dashboardLoading', false)
+          return res;
+        })
     }
   },
   mutations: {
     logout: state => {
-      state.user.data = {};
       state.user.token = null;
+      state.user.data = {};
       sessionStorage.removeItem('TOKEN');
     },
     setUser: (state, userData) => {
       state.user.data = userData;
-      state.user.token = userData.token;
-      sessionStorage.setItem('TOKEN', userData.token);
+      //state.user.token = userData.token;
+      //sessionStorage.setItem('TOKEN', userData.token);
     },
     setToken: (state, token) => {
       state.user.token = token;
@@ -235,6 +252,12 @@ const store = createStore({
       setTimeout(() => {
         state.notification.show = false;
       }, 3000)
+    },
+    dashboardLoading: (state, loading) => {
+      state.dashboard.loading = loading
+    },
+    setDashboardData: (state, data) => {
+      state.dashboard.data = data
     }
   }
 });
