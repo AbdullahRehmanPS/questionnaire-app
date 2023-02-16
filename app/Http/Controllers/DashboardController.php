@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\QuestionnaireAnswerResource;
+use App\Http\Resources\QuestionnaireResourceDashboard;
 use App\Models\Questionnaire;
 use App\Models\QuestionnaireAnswer;
 use Illuminate\Http\Request;
@@ -13,10 +14,14 @@ class DashboardController extends Controller
         $user = $request->user();
 
         // Total Number of Questionnaire
-        $total = Questionnaire::query()->where('user_id', $user->id)->count();
+        $total = Questionnaire::query()
+            ->where('user_id', $user->id)
+            ->count();
 
         // Latest Questionnaire
-        $latest = Questionnaire::query()->where('user_id', $user->id)->latest('created_at')->first();
+        $latest = Questionnaire::query()
+            ->where('user_id', $user->id)
+            ->latest('created_at')->first();
 
         // Total Number of answers
         $totalAnswers = QuestionnaireAnswer::query()
@@ -34,7 +39,7 @@ class DashboardController extends Controller
 
         return [
             'totalQuestionnaires' => $total,
-            //'latestQuestionnaires' => $latest ? new SurveyResourceDashboard($latest) : null,
+            'latestQuestionnaires' => $latest ? new QuestionnaireResourceDashboard($latest) : null,
             'totalAnswers' => $totalAnswers,
             'latestAnswers' => QuestionnaireAnswerResource::collection($latestAnswers)
         ];
