@@ -1,7 +1,5 @@
 <template>
   <PageComponent title="User">
-
-
   </PageComponent>
 </template>
 

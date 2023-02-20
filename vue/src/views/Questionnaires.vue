@@ -20,12 +20,12 @@
       </div>
     </template>
 
-    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+    <div>
       <div v-if="!questionnaires.length" class="text-gray-600 mx-4">
         You don't have questionnaire created
       </div>
       <!--      Individual Questionnaire card -->
-      <div v-else>
+      <div v-else class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
         <QuestionnaireListItem
           v-for="questionnaire in questionnaires"
           :key="questionnaire.id"

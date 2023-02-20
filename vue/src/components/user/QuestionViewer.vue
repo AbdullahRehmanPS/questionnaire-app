@@ -28,11 +28,8 @@
 
       <!--      Radio -->
       <div v-else-if="question.type === 'radio'">
-        <div
-          v-for="(option, ind) of question.data.options"
-          :key="option.uuid"
-          class="flex items-center"
-        >
+        <div v-for="(option, ind) of question.data.options" :key="option.uuid" class="flex items-center">
+
           <input
             :id="option.uuid"
             :name="'question' + question.id"
@@ -47,6 +44,7 @@
           >
             {{ option.text }}
           </label>
+
         </div>
       </div>
 

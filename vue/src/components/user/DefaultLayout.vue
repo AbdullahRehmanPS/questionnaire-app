@@ -82,7 +82,7 @@ import { BellIcon,
 
 const navigation = [
   { name: 'User Dashboard', to: {name: 'UserDashboard'} },
-  { name: 'User Dashboard', to: {name: 'QuestionnaireCreate'} },
+  { name: 'Dashboard', to: {name: 'QuestionnaireCreate'} },
 ];
 
 export default {
