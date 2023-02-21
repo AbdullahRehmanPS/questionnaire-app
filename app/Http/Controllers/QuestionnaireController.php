@@ -130,10 +130,10 @@ class QuestionnaireController extends Controller
                 Questionnaire::TYPE_RADIO,
                 Questionnaire::TYPE_CHECKBOX,
             ])],
+            'marks' => 'required|numeric|min:0',
             'description' => 'nullable|string',
             'data' => 'present',
         ]);
-
         return $question->update($validator->validated());
     }
 

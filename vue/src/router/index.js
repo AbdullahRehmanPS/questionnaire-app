@@ -23,6 +23,7 @@ const routes = [
       { path: '/questionnaires', name: 'Questionnaires', component: Questionnaires },
       { path: '/questionnaires/create', name: 'QuestionnaireCreate', component: QuestionnaireView },
       { path: '/questionnaires/:id', name: 'QuestionnaireView', component: QuestionnaireView },
+      { path: '/view/responses', name: 'Responses', component: QuestionnaireView },
       //{ path: '/register', name: 'Register', component: Register }
     ]
   },

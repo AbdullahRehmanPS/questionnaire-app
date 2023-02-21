@@ -5,6 +5,15 @@
     </h3>
 
     <div class="flex items-center">
+      <!--  Marks    -->
+      <label :for="'marks_for_' + model.data" class="block text-sm font-medium text-gray-700 mr-2">
+        Marks for question {{ index + 1 }}
+      </label>
+      <input type="number" min="1" :name="'question_marks_' + model.id"
+             v-model="model.marks" @change="dataChange" :id="'question_marks_' + model.id"
+             class="flex w-14 items-center text-xs py-1 px-3 mr-2 rounded-sm border border-pink-600 text-white bg-pink-400 hover:bg-pink-600" />
+      <!--  /Marks    -->
+
       <!--  Add new question    -->
       <button type="button" @click="addQuestion()" class="flex items-center text-xs py-1 px-3 mr-2 rounded-sm border border-green-700 text-white bg-green-500 hover:bg-green-700">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -92,10 +101,12 @@
         <input
           :id="option.uuid"
           :name="'question' + question.id"
-          :value="option.text"
-          @change="setAnswer(option.text)"
+          :value="option.uuid"
+          v-model="option.uuid"
+          @change="setAnswer(option.uuid)"
           type="radio"
           class="focus:ring-orange-500 h-4 w-4 text-orange-600 border-gray-300 mr-2"
+          required=""
         />
         <input type="text" tabindex="1" v-model="option.text" @change="dataChange" class="w-full rounded-sm py-1 px-2 text-xs border border-gray-300 focus:border-orange-500 focus:ring-orange-500" />
 
@@ -128,8 +139,7 @@ const props = defineProps({
 const emit = defineEmits([
   'change',
   'addQuestion',
-  'deleteQuestion',
-  'answer'
+  'deleteQuestion'
 ]);
 
 const model = ref(JSON.parse(JSON.stringify(props.question)));

@@ -74,7 +74,7 @@
               @change="questionChange"
               @addQuestion="addQuestion"
               @deleteQuestion="deleteQuestion"
-              @answer="abcd"
+
             />
           </div>
 
@@ -127,6 +127,7 @@ function addQuestion(index) {
     const newQuestion = {
       id: uuid.v1(),
       type: 'text',
+      marks: "",
       question: "",
       description: null,
       data: {},
@@ -174,9 +175,7 @@ function deleteQuestionnaire() {
       })
   }
 }
-function abcd(data) {
-  console.log(data)
-}
+
 </script>
 
 

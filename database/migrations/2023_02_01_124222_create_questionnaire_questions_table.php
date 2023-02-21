@@ -17,6 +17,7 @@ return new class extends Migration
         Schema::create('questionnaire_questions', function (Blueprint $table) {
             $table->id();
             $table->string('type', 45);
+            $table->integer('marks')->default(0);
             $table->string('question',2000);
             $table->longText('description')->nullable();
             $table->longText('data')->nullable();
