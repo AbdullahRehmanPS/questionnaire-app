@@ -41,7 +41,7 @@ class DashboardController extends Controller
             'totalQuestionnaires' => $total,
             'latestQuestionnaires' => $latest ? new QuestionnaireResourceDashboard($latest) : null,
             'totalAnswers' => $totalAnswers,
-            'latestAnswers' => QuestionnaireAnswerResource::collection($latestAnswers)
+            'latestAnswers' => QuestionnaireAnswerResource::collection($latestAnswers),
         ];
 
     }

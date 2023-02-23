@@ -16,12 +16,8 @@
           <div>
             <label for="email-address" class="sr-only">Email address</label>
             <input id="email-address" name="email" type="email" autocomplete="email"
-                   required="" v-model="user.email"
-                   class="relative block w-full appearance-none
-                   rounded-none rounded-t-md border border-gray-300
-                   px-3 py-2 text-gray-900 placeholder-gray-500
-                   focus:z-10 focus:border-orange-500 focus:outline-none
-                   focus:ring-orange-500 sm:text-sm" placeholder="Email address" />
+                    v-model="user.email"
+                   class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-orange-500 focus:outline-none focus:ring-orange-500 sm:text-sm" placeholder="Email address" />
           </div>
           <div>
             <label for="password" class="sr-only">Password</label>

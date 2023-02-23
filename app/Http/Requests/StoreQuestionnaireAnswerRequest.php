@@ -24,7 +24,11 @@ class StoreQuestionnaireAnswerRequest extends FormRequest
     public function rules()
     {
         return [
-            'answers' => 'required|array'
+            //'answers' => 'required|array',
+            'answers' => 'array',
+            'data.name' => 'required|regex:/^[A-Za-z\s]+$/',
+            'data.email' => 'required|email'
+            //'email' => 'required|email|unique:students,email',
         ];
     }
 }

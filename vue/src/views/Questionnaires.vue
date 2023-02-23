@@ -21,11 +21,12 @@
     </template>
 
     <div>
-      <div v-if="!questionnaires.length" class="text-gray-600 mx-4">
-        You don't have questionnaire created
-      </div>
+      <div v-if="loading" class="flex justify-center">loading...</div>
       <!--      Individual Questionnaire card -->
-      <div v-else class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
+      <div v-else class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 animate-fade-in-down">
+        <div v-if="!questionnaires.length" class="text-gray-600 mx-4">
+          You don't have questionnaire created.
+        </div>
         <QuestionnaireListItem
           v-for="questionnaire in questionnaires"
           :key="questionnaire.id"
@@ -47,6 +48,7 @@ import QuestionnaireListItem from "../components/QuestionnaireListItem.vue";
 
 const router = useRouter();
 const questionnaires = computed(() => store.state.questionnaires.data);
+const loading = computed(() => store.state.questionnaires.loading);
 
 store.dispatch('getQuestionnaires')
 

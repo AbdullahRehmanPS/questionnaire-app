@@ -16,27 +16,21 @@
     </template>
 
     <form @submit.prevent="saveQuestionnaire">
-      <div class="shadow sm:rounded-md sm:overflow-hidden">
+      <div v-if="loading" class="flex justify-center">loading...</div>
+      <div v-else class="shadow sm:rounded-md sm:overflow-hidden animate-fade-in-down">
         <!--    QuestionnaireFields -->
         <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
-          <!--     Image -->
-
           <!--     Title -->
           <div>
-            <label for="title" class="block text-sm font-medium text-gray-700">
-              Title
-            </label>
+            <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
             <input id="title" name="title" type="text" v-model="model.title" autocomplete="questionnaire_title"
               class="mt-1 focus:ring-orange-500 focus:border-orange-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
             />
           </div>
           <!--     /Title -->
-
           <!--  Description  -->
           <div>
-            <label for="about" class="block text-sm font-medium text-gray-700">
-              Description
-            </label>
+            <label for="about" class="block text-sm font-medium text-gray-700">Description</label>
             <div class="mt-1">
               <textarea id="description" name="description" rows="3"
                 v-model="model.description" autocomplete="questionnaire_description" placeholder="Describe your questionnaire"
@@ -45,14 +39,10 @@
             </div>
           </div>
           <!--  /Description -->
-
         </div>
         <!--  /QuestionnaireFields      -->
-
         <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
-
-          <h3 class="text-2xl font-semibold flex items-center justify-between">
-            Questions
+          <h3 class="text-2xl font-semibold flex items-center justify-between">Questions
             <!--  Add new questions -->
             <button type="button" @click="addQuestion()" class="flex items-center text-sm py-1 px-4 rounded-sm text-white bg-gray-600 hover:bg-gray-700">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -62,11 +52,7 @@
             </button>
             <!--   /Add new questions -->
           </h3>
-
-          <div v-if="!model.questions.length" class="text-center text-gray-600">
-            You don't have questions created
-          </div>
-
+          <div v-if="!model.questions.length" class="text-center text-gray-600">You don't have questions created</div>
           <div v-for="(question,index) in model.questions" :key="question.id">
             <QuestionEditor
               :question="question"
@@ -74,18 +60,14 @@
               @change="questionChange"
               @addQuestion="addQuestion"
               @deleteQuestion="deleteQuestion"
-
             />
           </div>
-
         </div>
-
         <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-          <button type="submit" class="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 border-b-4 border-yellow-600 hover:border-yellow-500 rounded"
-          >Save
+          <button type="submit" class="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 border-b-4 border-yellow-600 hover:border-yellow-500 rounded">
+            Save
           </button>
         </div>
-
       </div>
     </form>
 
@@ -95,13 +77,14 @@
 <script setup>
 import PageComponent from "../components/PageComponent.vue";
 import QuestionEditor from "../components/admin/QuestionEditor.vue"
-import {ref, watch} from 'vue';
+import {computed, ref, watch} from 'vue';
 import {useRouter, useRoute} from "vue-router";
 import {uuid} from 'vue-uuid';
 import store from "../store/index.js";
 
 const route = useRoute();
 const router = useRouter();
+const loading = computed(() => store.state.currentQuestionnaires.loading);
 
 let model = ref({
   title: "",

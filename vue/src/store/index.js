@@ -11,6 +11,10 @@ const store = createStore({
       loading: false,
       data: {}
     },
+    response: {
+      loading: false,
+      data: {}
+    },
     currentQuestionnaires: {
       loading: false,
       data: {}
@@ -19,7 +23,8 @@ const store = createStore({
       loading: false,
       data: []
     },
-    questionTypes: ['text', 'textarea', 'select', 'radio'],
+    questionTypes: [
+      'text', 'textarea', 'select', 'radio'],
     notification: {
       show: false,
       type: null,
@@ -71,25 +76,25 @@ const store = createStore({
       return response;
     },
     getQuestionnaire({commit}, id) {
-      //commit("setCurrentSurveyLoading", true);
+      commit("setCurrentQuestionnaireLoading", true);
       return axiosClient
         .get(`/auth/questionnaire/${id}`)
         .then((res) => {
           commit("setCurrentQuestionnaire", res.data);
-          //commit("setCurrentSurveyLoading", false);
+          commit("setCurrentQuestionnaireLoading", false);
           return res;
         })
         .catch((err) => {
-          //commit("setCurrentSurveyLoading", false);
+          commit("setCurrentQuestionnaireLoading", false);
           throw err;
         });
     },
     getQuestionnaires({commit}) {
-      //commit("setCurrentSurveyLoading", true);
+      commit("setQuestionnaireLoading", true);
       return axiosClient
         .get('/auth/questionnaire')
         .then((res) => {
-          //commit("setCurrentSurveyLoading", false);
+          commit("setQuestionnaireLoading", false);
           commit('setQuestionnaires', res.data)
         })
     },
@@ -100,9 +105,23 @@ const store = createStore({
     getQuestionnaireBySlug() {
 
     },
-    saveQuestionnaireAnswer({commit}, {questionnaireId, answers}) {
+    saveQuestionnaireAnswer({commit}, {questionnaireId, answers, data}) {
       return axiosClient
-        .post(`/auth/questionnaire/${questionnaireId}/answer`, {answers})
+        .post(`/auth/questionnaire/${questionnaireId}/answer`, {answers, data})
+    },
+    getResponses( {commit}, id) {
+      commit('responseLoading', true)
+      return axiosClient
+        .get(`/auth/responses/${id}`)
+        .then((res) => {
+          commit('responseLoading', false)
+          commit('setResponseData', res.data)
+          return res
+        })
+        .catch(error => {
+          commit('responseLoading', false)
+          return error;
+        })
     },
     getDashboardData({commit}) {
       commit('dashboardLoading', true)
@@ -115,7 +134,7 @@ const store = createStore({
         })
         .catch(error => {
           commit('dashboardLoading', false)
-          return res;
+          return error;
         })
     }
   },
@@ -135,8 +154,14 @@ const store = createStore({
     setCurrentQuestionnaire: (state, questionnaire) => {
       state.currentQuestionnaires.data = questionnaire.data;
     },
+    setCurrentQuestionnaireLoading: (state, loading) => {
+      state.currentQuestionnaires.loading = loading;
+    },
     setQuestionnaires: (state, questionnaires) => {
       state.questionnaires.data = questionnaires.data
+    },
+    setQuestionnaireLoading: (state, loading) => {
+      state.questionnaires.loading = loading;
     },
     notify: (state, {type, message}) => {
       state.notification.show = true;
@@ -151,6 +176,12 @@ const store = createStore({
     },
     setDashboardData: (state, data) => {
       state.dashboard.data = data
+    },
+    responseLoading: (state, loading) => {
+      state.response.loading = loading
+    },
+    setResponseData: (state, data) => {
+      state.response.data = data
     }
   }
 });

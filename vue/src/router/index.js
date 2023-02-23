@@ -9,6 +9,7 @@ import AdminDefaultLayout from "../components/admin/DefaultLayout.vue"
 import UserDefaultLayout from "../components/user/DefaultLayout.vue"
 import QuestionnaireView from "../views/QuestionnaireView.vue"
 import QuestionnairePublicView from "../views/user/QuestionnairePublicView.vue"
+import Responses from "../views/Responses.vue";
 
 import store from "../store/index.js";
 
@@ -23,7 +24,7 @@ const routes = [
       { path: '/questionnaires', name: 'Questionnaires', component: Questionnaires },
       { path: '/questionnaires/create', name: 'QuestionnaireCreate', component: QuestionnaireView },
       { path: '/questionnaires/:id', name: 'QuestionnaireView', component: QuestionnaireView },
-      { path: '/view/responses', name: 'Responses', component: QuestionnaireView },
+      { path: '/view/responses/:id', name: 'Responses', component: Responses },
       //{ path: '/register', name: 'Register', component: Register }
     ]
   },
@@ -59,7 +60,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && !store.state.user.token) {
     next({name: 'Login'})
-  } else if (store.state.user.token && to.meta.isGuest){/*(to.name === 'Login' || to.name === 'Register'))*/
+  } else if (store.state.user.token && to.meta.isGuest){
       next({name: 'AdminDashboard'})
   } else {
     next();

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\QuestionnaireController;
+use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,7 @@ Route::prefix('auth')->group(function () {
 
     Route::group(['middleware' => 'auth:api'], function(){
         Route::get('user', [AuthController::class, 'user']);
+        Route::get('/responses/{id}', [ResponseController::class, 'getResponses']);
         Route::post('logout', [AuthController::class, 'logout']);
         Route::resource('/questionnaire', QuestionnaireController::class);
         Route::get('/dashboard', [DashboardController::class, 'index']);

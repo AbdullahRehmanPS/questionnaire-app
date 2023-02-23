@@ -76,6 +76,7 @@
         <input
           type="text"
           :value="modelValue"
+          required=""
           @input="emits('update:modelValue', $event.target.value)"
           class="mt-1 focus:ring-orange-500 focus:border-orange-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
         />
@@ -85,6 +86,7 @@
       <div v-else-if="question.type === 'textarea'">
         <textarea
           :value="modelValue"
+          required=""
           @input="emits('update:modelValue', $event.target.value)"
           class="mt-1 focus:ring-orange-500 focus:border-orange-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
         ></textarea>

@@ -11,7 +11,7 @@ class QuestionnaireAnswer extends Model
     public const CREATED_AT = null;
     public const UPDATED_AT = null;
 
-    protected $fillable = ['questionnaire_id', 'start_date', 'end_date'];
+    protected $fillable = ['questionnaire_id', 'name', 'email', 'start_date', 'end_date'];
 
     public function questionnaire()
     {

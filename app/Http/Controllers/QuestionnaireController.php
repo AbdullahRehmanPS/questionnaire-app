@@ -140,8 +140,11 @@ class QuestionnaireController extends Controller
     public function storeAnswer(StoreQuestionnaireAnswerRequest $request, Questionnaire $questionnaire)
     {
         $validated = $request->validated();
+        $data = $validated['data'];
         $questionnaireAnswer = QuestionnaireAnswer::create([
             'questionnaire_id' => $questionnaire->id,
+            'name' => $data['name'],
+            'email' => $data['email'],
             'start_date' => date('Y-m-d H:i:s'),
             'end_date' => date('Y-m-d H:i:s'),
         ]);

@@ -20,6 +20,9 @@ return new class extends Migration
             $table->foreignIdFor(Questionnaire::class,'questionnaire_id')
                 ->references('id')->on('questionnaires')
                 ->onDelete('cascade');
+            $table->string('name');
+            $table->string('email');
+            $table->integer('total_marks')->default(0);
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
         });
