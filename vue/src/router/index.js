@@ -10,6 +10,7 @@ import UserDefaultLayout from "../components/user/DefaultLayout.vue"
 import QuestionnaireView from "../views/QuestionnaireView.vue"
 import QuestionnairePublicView from "../views/user/QuestionnairePublicView.vue"
 import Responses from "../views/Responses.vue";
+import Response from "../views/Response.vue";
 
 import store from "../store/index.js";
 
@@ -25,7 +26,7 @@ const routes = [
       { path: '/questionnaires/create', name: 'QuestionnaireCreate', component: QuestionnaireView },
       { path: '/questionnaires/:id', name: 'QuestionnaireView', component: QuestionnaireView },
       { path: '/view/responses/:id', name: 'Responses', component: Responses },
-      //{ path: '/register', name: 'Register', component: Register }
+      { path: '/view/response/:id', name: 'Response', component: Response },
     ]
   },
   {

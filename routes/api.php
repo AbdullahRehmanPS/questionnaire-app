@@ -27,6 +27,7 @@ Route::prefix('auth')->group(function () {
     Route::group(['middleware' => 'auth:api'], function(){
         Route::get('user', [AuthController::class, 'user']);
         Route::get('/responses/{id}', [ResponseController::class, 'getResponses']);
+        Route::get('/response/{id}', [ResponseController::class, 'getResponse']);
         Route::post('logout', [AuthController::class, 'logout']);
         Route::resource('/questionnaire', QuestionnaireController::class);
         Route::get('/dashboard', [DashboardController::class, 'index']);

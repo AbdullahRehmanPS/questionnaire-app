@@ -6,7 +6,6 @@
         <div class="col-span-5">
           <h1 class="text-3xl mb-3">{{ questionnaire.title }}</h1>
           <p class="text-gray-500 text-sm" v-html="questionnaire.description"></p>
-
         </div>
       </div>
 
@@ -23,17 +22,15 @@
       </div>
 
       <div v-else>
-        <hr class="my-3"/>
+<!--        <hr class="my-3"/>-->
         <div class="py-4 bg-white space-y-2 sm:py-4">
-          <label for="title" class="block text-sm font-medium text-gray-700">
-            Name
-          </label>
+          <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
           <input id="name" name="name" type="text" v-model="model.name" required="" class="mt-1 focus:ring-orange-500 focus:border-orange-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-          <label for="title" class="block text-sm font-medium text-gray-700">
-            Email
-          </label>
+          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
           <input id="email" name="email" type="email"  v-model="model.email" required="" class="mt-1 focus:ring-orange-500 focus:border-orange-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
         </div>
+        <hr class="my-3"/>
+
         <div v-for="(question , index) in questionnaire.questions" :key="question.id">
           <QuestionViewer
             v-model="answers[question.id]"

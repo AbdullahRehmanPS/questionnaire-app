@@ -11,6 +11,10 @@ const store = createStore({
       loading: false,
       data: {}
     },
+    responses: {
+      loading: false,
+      data: {}
+    },
     response: {
       loading: false,
       data: {}
@@ -109,13 +113,28 @@ const store = createStore({
       return axiosClient
         .post(`/auth/questionnaire/${questionnaireId}/answer`, {answers, data})
     },
-    getResponses( {commit}, id) {
-      commit('responseLoading', true)
+    getResponses({commit}, id) {
+      commit('responsesLoading', true)
       return axiosClient
         .get(`/auth/responses/${id}`)
         .then((res) => {
+          commit('responsesLoading', false)
+          commit('setResponsesData', res.data.data)
+          return res
+        })
+        .catch(error => {
+          commit('responsesLoading', false)
+          return error;
+        })
+    },
+    getResponse({commit}, id) {
+      commit('responseLoading', true)
+      return axiosClient
+        .get(`/auth/response/${id}`)
+        .then((res) => {
           commit('responseLoading', false)
           commit('setResponseData', res.data)
+          console.log( res.data)
           return res
         })
         .catch(error => {
@@ -176,6 +195,12 @@ const store = createStore({
     },
     setDashboardData: (state, data) => {
       state.dashboard.data = data
+    },
+    responsesLoading: (state, loading) => {
+      state.responses.loading = loading
+    },
+    setResponsesData: (state, data) => {
+      state.responses.data = data
     },
     responseLoading: (state, loading) => {
       state.response.loading = loading

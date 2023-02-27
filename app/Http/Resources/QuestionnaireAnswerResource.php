@@ -15,13 +15,14 @@ class QuestionnaireAnswerResource extends JsonResource
      */
     public function toArray($request)
     {
+        $sdfgh= 0;
         //return parent::toArray($request);
         return [
             'id' => $this->id,
             'questionnaire' => new QuestionnaireResource($this->questionnaire),
             'name' => $this->name,
             'email' => $this->email,
-            'marks' => $this->marks,
+            'total_marks' => $this->total_marks,
             'end_date' => (new DateTime($this->end_date))->format('Y-m-d H:i:s')
         ];
     }
