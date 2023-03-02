@@ -107,6 +107,7 @@ class QuestionnaireController extends Controller
                 Questionnaire::TYPE_SELECT,
                 Questionnaire::TYPE_CHECKBOX,
             ])],
+            'marks' => 'required|numeric|min:0',
             'description' => 'nullable|string',
             'data' => 'present',
             'questionnaire_id' => 'exists:App\Models\Questionnaire,id'

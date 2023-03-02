@@ -3,9 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Nette\Utils\DateTime;
 
-class QuestionnaireAnswerResource extends JsonResource
+class QuestionnaireQuestionAnswerResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,12 +16,11 @@ class QuestionnaireAnswerResource extends JsonResource
     {
         //return parent::toArray($request);
         return [
-            'id' => $this->id,
-            'questionnaire' => new QuestionnaireResource($this->questionnaire),
-            'name' => $this->name,
-            'email' => $this->email,
-            'total_marks' => $this->total_marks,
-            'end_date' => (new DateTime($this->end_date))->format('Y-m-d H:i:s')
+            'answer' => $this->answer,
+            'description' => $this->description,
+            'question' => $this->question,
+            'type' => $this->type,
+            'data' => json_decode($this->data)
         ];
     }
 }

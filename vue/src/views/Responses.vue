@@ -2,7 +2,7 @@
   <PageComponent title="Responses">
     <div v-if="loading" class="flex justify-center">loading...</div>
     <div v-if="data.length" class="overflow-x-auto rounded-lg border border-gray-200">
-      <p>{{data}}</p>
+<!--      <p>{{data}}</p>-->
       <table class="min-w-full divide-y-2 divide-gray-200 text-sm animate-fade-in-down">
         <thead>
         <tr>

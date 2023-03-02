@@ -26,6 +26,7 @@ return new class extends Migration
                 ->references('id')->on('questionnaire_answers')
                 ->onDelete('cascade');
             $table->text('answer');
+            //$table->uuid('answer_uuid')->unique();
             $table->timestamps();
         });
     }

@@ -28,7 +28,7 @@ const store = createStore({
       data: []
     },
     questionTypes: [
-      'text', 'textarea', 'select', 'radio'],
+      'text', 'textarea', 'radio'],
     notification: {
       show: false,
       type: null,
@@ -134,7 +134,6 @@ const store = createStore({
         .then((res) => {
           commit('responseLoading', false)
           commit('setResponseData', res.data)
-          console.log( res.data)
           return res
         })
         .catch(error => {

@@ -102,7 +102,6 @@
           :id="option.uuid"
           :name="'question' + question.id"
           :value="option.uuid"
-          v-model="option.uuid"
           @change="setAnswer(option.uuid)"
           type="radio"
           class="focus:ring-orange-500 h-4 w-4 text-orange-600 border-gray-300 mr-2"

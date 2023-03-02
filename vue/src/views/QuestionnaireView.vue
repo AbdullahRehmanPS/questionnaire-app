@@ -106,16 +106,14 @@ if (route.params.id) {
 }
 
 function addQuestion(index) {
-
     const newQuestion = {
       id: uuid.v1(),
       type: 'text',
-      marks: "",
+      marks: 0,
       question: "",
       description: null,
       data: {},
     };
-
   model.value.questions.splice(index, 0, newQuestion);
 }
 
@@ -135,6 +133,7 @@ function questionChange(data) {
 }
 
 function saveQuestionnaire() {
+  console.log(model.value)
   store.dispatch('saveQuestionnaire', model.value)
     .then(({data}) => {
       store.commit('notify', {

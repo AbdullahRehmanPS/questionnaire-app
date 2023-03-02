@@ -25,8 +25,11 @@
         </div>
       </dl>
     </div>
-    <div class="border-t border-gray-200">
-
+    <div v-for="(questionAnswer , index) in data.questionsWithAnswers" :key="questionAnswer.id" class="border-t border-gray-200 m-10">
+      <ResponseViewer
+        :questionAnswer="questionAnswer"
+        :index="index"
+      />
     </div>
   </div>
 </template>
@@ -35,6 +38,7 @@
 import { useRoute } from "vue-router";
 import store from "../store/index.js";
 import {computed} from "vue";
+import ResponseViewer from "../components/ResponseViewer.vue";
 
 const route = useRoute();
 const data = computed(() => store.state.response.data);
@@ -42,7 +46,7 @@ const loading = computed(() => store.state.response.loading);
 
 store
   .dispatch('getResponse', route.params.id)
-  // .then((response) => {
-  //   //console.log(response)
-  // })
+  .then((response) => {
+    console.log(response)
+  })
 </script>
