@@ -15,7 +15,7 @@ class Questionnaire extends Model
     const TYPE_RADIO = 'radio';
     const TYPE_CHECKBOX = 'checkbox';
 
-    protected $fillable = ['user_id', 'title', 'description', 'expire_date'];
+    protected $fillable = ['user_id', 'title', 'description', 'expire_date', 'total_marks'];
 
     public function questions() {
         return $this->hasMany(QuestionnaireQuestion::class);

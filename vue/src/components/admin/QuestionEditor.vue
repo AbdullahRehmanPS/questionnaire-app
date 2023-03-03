@@ -11,7 +11,7 @@
       </label>
       <input type="number" min="1" :name="'question_marks_' + model.id"
              v-model="model.marks" @change="dataChange" :id="'question_marks_' + model.id"
-             class="flex w-14 items-center text-xs py-1 px-3 mr-2 rounded-sm border border-pink-600 text-white bg-pink-400 hover:bg-pink-600" />
+             class="flex w-14 items-center text-xs py-1 px-1 mr-2 rounded-sm border border-pink-600 text-white bg-pink-400 hover:bg-pink-600" />
       <!--  /Marks    -->
 
       <!--  Add new question    -->
@@ -42,7 +42,7 @@
       <label :for="'question_text_' + model.data" class="block text-sm font-medium text-gray-700">
         Question Text
       </label>
-      <input type="text" :name="'question_text_' + model.data"
+      <input type="text" :name="'question_text_' + model.data" required=""
              v-model="model.question" @change="dataChange"
              :id="'question_text_' + model.data" class="mt-1 focus:ring-orange-500 focus:border-orange-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
       />

@@ -22,6 +22,7 @@ return new class extends Migration
             //$table->string('slug', 1000);
             //$table->tinyInteger('status');
             $table->text('description')->nullable();
+            $table->integer('total_marks')->default(0);
             $table->timestamps();
             $table->timestamp('expire_date')->nullable();
         });

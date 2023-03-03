@@ -3,16 +3,15 @@
   <div v-else class="overflow-hidden bg-white shadow sm:rounded-lg">
     <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
       <div>
-        <h3 class="text-base font-semibold leading-6 text-gray-900">{{data.questionnaire[0].title}}</h3>
-        <p class="mt-1 max-w-2xl text-sm text-gray-500">{{data.questionnaire[0].description}}</p>
+        <h3 class="text-base font-semibold leading-6 text-gray-900">{{ data.questionnaire[0].title }}</h3>
+        <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ data.questionnaire[0].description }}</p>
       </div>
       <div>
         <button class="py-2 px-2 text-white bg-emerald-500 rounded-md hover:bg-emerald-600">
-          mark/marks
+          0/{{ data.questionnaire[0].total_marks }}
         </button>
       </div>
     </div>
-
     <div class="border-t border-gray-200">
       <dl>
         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

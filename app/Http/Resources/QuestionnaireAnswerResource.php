@@ -21,7 +21,7 @@ class QuestionnaireAnswerResource extends JsonResource
             'questionnaire' => new QuestionnaireResource($this->questionnaire),
             'name' => $this->name,
             'email' => $this->email,
-            'total_marks' => $this->total_marks,
+            'total_obtained_marks' => $this->total_obtained_marks,
             'end_date' => (new DateTime($this->end_date))->format('Y-m-d H:i:s')
         ];
     }

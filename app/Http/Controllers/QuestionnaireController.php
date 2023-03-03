@@ -28,13 +28,18 @@ class QuestionnaireController extends Controller
         $data = $request->validated();
         $data['user_id'] = $request->user()->id;
         $questionnaire = Questionnaire::create($data);
-
+        $totalMarks = 0;
         // Create new questions
         foreach ($data['questions'] as $question) {
             $question['questionnaire_id'] = $questionnaire->id;
+            $validator = Validator::make($question, [
+                'marks' => 'required|numeric|min:0',
+            ]);
+            $totalMarks += $validator->validated()['marks'];
             $this->createQuestion($question);
         }
-
+        $questionnaire->total_marks = $totalMarks;
+        $questionnaire->save();
         return new QuestionnaireResource($questionnaire);
     }
 
@@ -53,6 +58,9 @@ class QuestionnaireController extends Controller
         $data = $request->validated();
         // Update questionnaire in the database
         $questionnaire->update($data);
+        //
+        $totalMarks = 0;
+        //
         // Get ids as plain array of existing questions
         $existingIds = $questionnaire->questions()->pluck('id')->toArray();
         // Get ids as plain array of new questions
@@ -69,6 +77,12 @@ class QuestionnaireController extends Controller
         foreach ($data['questions'] as $question) {
             if (in_array($question['id'], $toAdd)) {
                 $question['questionnaire_id'] = $questionnaire->id;
+
+                $validator = Validator::make($question, [
+                    'marks' => 'required|numeric|min:0',
+                ]);
+                $totalMarks += $validator->validated()['marks'];
+
                 $this->createQuestion($question);
             }
         }
@@ -76,10 +90,18 @@ class QuestionnaireController extends Controller
         // Update existing questions
         $questionMap = collect($data['questions'])->keyBy('id');
         foreach ($questionnaire->questions as $question) {
+            //$newQuestion = $question;
             if (isset($questionMap[$question->id])) {
                 $this->updateQuestion($question, $questionMap[$question->id]);
+
+                $totalMarks += $question['marks'];
+
             }
         }
+
+        $questionnaire->total_marks = $totalMarks;
+        $questionnaire->save();
+
         return new QuestionnaireResource($questionnaire);
     }
 

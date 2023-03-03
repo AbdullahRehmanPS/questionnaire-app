@@ -14,9 +14,17 @@ class ResponseController extends Controller
 {
     public function getResponses(Request $request, $id)
     {
+        $user = $request->user();
+        $questionnaire = Questionnaire::where('id', $id)->get();
+        if ($user->id !== $questionnaire->pluck('user_id')->toArray()[0]) {
+            return abort(403, 'Unauthorized action');
+        }
         //$responses = QuestionnaireAnswer::where('questionnaire_id', $id)->get();
         $responses = QuestionnaireAnswerResourceResponse::collection(QuestionnaireAnswer::where('questionnaire_id', $id)->get());
-        return $responses;
+        return [
+            'responses' =>$responses,
+            'questionnaire' => $questionnaire
+        ];
     }
 
     public function getResponse(Request $request, $id)
@@ -24,17 +32,22 @@ class ResponseController extends Controller
         $UserId = intval($id); //response(each answer) ki id
         $record = QuestionnaireAnswer::where('id', $id)->first();
         $questionnaire_id = $record->questionnaire_id; //Questionnaire ki id
-        $questionnaireAnswerId = $record->id;
-
+        //$questionnaireAnswerId = $record->id;  //response(each answer) ki id
         $questionnaireAndQuestions = Questionnaire::where('id', $questionnaire_id)->get(); //Questionnaire or questions dono
-        $questionnaire = QuestionnaireResource::collection($questionnaireAndQuestions);
 
-        $question = $questionnaire->pluck('questions'); //questions in questionnaire
+        $user = $request->user();
+        if ($user->id !== $questionnaireAndQuestions->pluck('user_id')->toArray()[0]) {
+            return abort(403, 'Unauthorized action');
+        }
+
+        //$questionnaireAndQuestions = Questionnaire::where('id', $questionnaire_id)->get(); //Questionnaire or questions dono
+        //$questionnaire = QuestionnaireResource::collection($questionnaireAndQuestions);
+        //$question = $questionnaire->pluck('questions'); //questions in questionnaire
 
         $singleResponse = QuestionnaireAnswer::where('id', $UserId)->get(); //ek response (each Answer)
 
         $questionsWithAnswers = QuestionnaireQuestionAnswer::query()
-            ->select('qq.question', 'qq.description', 'qq.data', 'qq.type', 'qqa.answer')
+            ->select('qq.question', 'qq.description', 'qq.data', 'qq.type', 'qq.marks', 'qqa.answer')
             ->from('questionnaires as q')
             ->join('questionnaire_answers as qa', 'q.id', '=', 'qa.questionnaire_id')
             ->join('questionnaire_questions as qq', 'qq.questionnaire_id', '=', 'q.id')
@@ -47,14 +60,10 @@ class ResponseController extends Controller
             ->get();
 
         return [
-//            'questionsWithAnswers' => $questionsWithAnswers,
             'questionsWithAnswers' => QuestionnaireQuestionAnswerResource::collection($questionsWithAnswers),
-            'questionnaire' => $questionnaire,
+            //'questionnaire' => QuestionnaireResource::collection($questionnaireAndQuestions),
+            'questionnaire' => $questionnaireAndQuestions,
             'response' => QuestionnaireAnswerResourceResponse::collection($singleResponse),
         ];
     }
 }
-//$questionDecode = json_decode($question);
-//foreach ($questionDecode as $questionInd) {
-//    $abc = $questionInd;
-//}

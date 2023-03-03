@@ -22,7 +22,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('name');
             $table->string('email');
-            $table->integer('total_marks')->default(0);
+            $table->integer('total_obtained_marks')->default(0);
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
         });

@@ -118,8 +118,9 @@ const store = createStore({
       return axiosClient
         .get(`/auth/responses/${id}`)
         .then((res) => {
+          //console.log(res)
           commit('responsesLoading', false)
-          commit('setResponsesData', res.data.data)
+          commit('setResponsesData', res.data)
           return res
         })
         .catch(error => {

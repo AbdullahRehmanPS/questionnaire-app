@@ -31,6 +31,7 @@ class UpdateQuestionnaireRequest extends FormRequest
             'title' => 'required|string|max:1000',
             'user_id' => 'exists:users,id',
             'description' => 'nullable|string',
+            //'total_marks' => 'required|numeric|min:0',
             'expire_date' => 'nullable|date|after:tomorrow',
             'questions' => 'array',
         ];

@@ -23,7 +23,7 @@
           <!--     Title -->
           <div>
             <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-            <input id="title" name="title" type="text" v-model="model.title" autocomplete="questionnaire_title"
+            <input id="title" name="title" type="text" v-model="model.title" autocomplete="questionnaire_title" required=""
               class="mt-1 focus:ring-orange-500 focus:border-orange-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
             />
           </div>
@@ -32,7 +32,7 @@
           <div>
             <label for="about" class="block text-sm font-medium text-gray-700">Description</label>
             <div class="mt-1">
-              <textarea id="description" name="description" rows="3"
+              <textarea id="description" name="description" rows="3" required=""
                 v-model="model.description" autocomplete="questionnaire_description" placeholder="Describe your questionnaire"
                 class="shadow-sm focus:ring-orange-500 focus:border-orange-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
               />
@@ -133,7 +133,7 @@ function questionChange(data) {
 }
 
 function saveQuestionnaire() {
-  console.log(model.value)
+  //console.log(model.value)
   store.dispatch('saveQuestionnaire', model.value)
     .then(({data}) => {
       store.commit('notify', {

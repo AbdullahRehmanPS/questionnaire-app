@@ -20,6 +20,7 @@ class QuestionnaireQuestionAnswerResource extends JsonResource
             'description' => $this->description,
             'question' => $this->question,
             'type' => $this->type,
+            'marks' => $this->marks,
             'data' => json_decode($this->data)
         ];
     }
